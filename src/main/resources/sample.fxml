@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="426.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+
+   <children>
+      <MenuBar prefHeight="39.0" prefWidth="426.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem fx:id="mnuItemLogin" mnemonicParsing="false" onAction="#openLogInWindow" text="Login" />
+                  <MenuItem mnemonicParsing="false" text="Close" />
+                  <MenuItem fx:id="tabLogOut" mnemonicParsing="false" onAction="#logoutUser" text="Logout" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <TabPane fx:id="tabPane" layoutX="1.0" layoutY="38.0" prefHeight="363.0" prefWidth="426.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="tabLogin" text="Login">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="318.0" prefWidth="369.0">
+                     <children>
+                        <PasswordField fx:id="pswfield" layoutX="115.0" layoutY="100.0" />
+                        <TextField fx:id="txtfieldUserName" layoutX="115.0" layoutY="52.0" />
+                        <Label fx:id="lblName" layoutX="14.0" layoutY="52.0" prefHeight="39.0" prefWidth="97.0" text="User Name" />
+                        <Label fx:id="lblPasswaor" layoutX="14.0" layoutY="106.0" prefHeight="27.0" prefWidth="96.0" text="Password" />
+                        <Button fx:id="btnLogin" layoutX="130.0" layoutY="140.0" mnemonicParsing="false" onAction="#loginUser" prefHeight="39.0" prefWidth="120.0" text="Login" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab fx:id="tabMain" text="Main">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="txtFieldCarNumber" layoutX="125.0" layoutY="7.0" prefHeight="39.0" prefWidth="139.0" AnchorPane.bottomAnchor="288.0" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="162.0" AnchorPane.topAnchor="7.0" />
+                        <Label fx:id="lbCarNumber" layoutX="47.0" layoutY="19.0" text="Car Number" AnchorPane.rightAnchor="314.0" />
+                        <TextField fx:id="txtFieldMaxWeigth" layoutX="125.0" layoutY="51.0" prefHeight="39.0" prefWidth="139.0" />
+                        <Label fx:id="lbMaxWeigth" layoutX="42.0" layoutY="62.0" text="Max Weigth" />
+                        <ComboBox fx:id="comboBoxCarNumber" editable="true" layoutX="174.0" layoutY="154.0" onAction="#getSelectedRemorca" onKeyReleased="#bringfromMySql" prefHeight="39.0" prefWidth="163.0" />
+                        <Label fx:id="lblSelectCarNumber" layoutX="42.0" layoutY="164.0" prefHeight="17.0" prefWidth="116.0" text="Select Car Number" textFill="#69488c">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtFieldUtilWeigth1" layoutX="124.0" layoutY="96.0" prefHeight="39.0" prefWidth="139.0" />
+                        <Label fx:id="lbUtilWeigth1" layoutX="42.0" layoutY="107.0" text="Util Weigth" />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</Pane>
