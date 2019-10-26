@@ -10,14 +10,19 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="426.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<Pane maxHeight="-Infinity" maxWidth="1300.0" minHeight="-Infinity" minWidth="1200.0" prefHeight="400.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
 
    <children>
-      <MenuBar prefHeight="39.0" prefWidth="426.0">
+      <MenuBar fx:id="menuBar" maxWidth="1200.0" minWidth="1200.0" prefHeight="39.0" prefWidth="1200.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
@@ -26,19 +31,49 @@
                   <MenuItem fx:id="tabLogOut" mnemonicParsing="false" onAction="#logoutUser" text="Logout" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
+          <Menu mnemonicParsing="false" text="Add to DataBase">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+              <MenuItem mnemonicParsing="false" text="Add Remorca" />
+                  <MenuItem fx:id="menuItemAddCar" mnemonicParsing="false" onAction="#openTabAddCar" text="Add Car" />
+                  <MenuItem mnemonicParsing="false" text="Add Driver" />
+                  <MenuItem fx:id="menuItemAddClient" mnemonicParsing="false" onAction="#openTabAddClient" text="Add Client" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+            <Menu mnemonicParsing="false" text="Remove from DataBase">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Remove Remorca" />
+                  <MenuItem mnemonicParsing="false" text="Remove Car" />
+                  <MenuItem mnemonicParsing="false" text="Remove Driver" />
+                  <MenuItem mnemonicParsing="false" text="Remove Client" />
+               </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Show Verification Date">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem mnemonicParsing="false" text="End Date for Technical Verficatio" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="About" />
+               </items>
+            </Menu>
         </menus>
+         <effect>
+            <Blend>
+               <topInput>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </topInput>
+            </Blend>
+         </effect>
       </MenuBar>
-      <TabPane fx:id="tabPane" layoutX="1.0" layoutY="38.0" prefHeight="363.0" prefWidth="426.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPane" layoutX="1.0" layoutY="38.0" prefHeight="363.0" prefWidth="1200.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="tabLogin" text="Login">
             <content>
@@ -55,23 +90,81 @@
           </Tab>
           <Tab fx:id="tabMain" text="Main">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="334.0" prefWidth="643.0">
                      <children>
-                        <TextField fx:id="txtFieldCarNumber" layoutX="125.0" layoutY="7.0" prefHeight="39.0" prefWidth="139.0" AnchorPane.bottomAnchor="288.0" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="162.0" AnchorPane.topAnchor="7.0" />
-                        <Label fx:id="lbCarNumber" layoutX="47.0" layoutY="19.0" text="Car Number" AnchorPane.rightAnchor="314.0" />
-                        <TextField fx:id="txtFieldMaxWeigth" layoutX="125.0" layoutY="51.0" prefHeight="39.0" prefWidth="139.0" />
-                        <Label fx:id="lbMaxWeigth" layoutX="42.0" layoutY="62.0" text="Max Weigth" />
-                        <ComboBox fx:id="comboBoxCarNumber" editable="true" layoutX="174.0" layoutY="154.0" onAction="#getSelectedRemorca" onKeyReleased="#bringfromMySql" prefHeight="39.0" prefWidth="163.0" />
-                        <Label fx:id="lblSelectCarNumber" layoutX="42.0" layoutY="164.0" prefHeight="17.0" prefWidth="116.0" text="Select Car Number" textFill="#69488c">
+                        <TextField fx:id="txtFieldCarNumber" layoutX="98.0" layoutY="132.0" prefHeight="39.0" prefWidth="143.0" AnchorPane.bottomAnchor="163.0" AnchorPane.leftAnchor="98.0" AnchorPane.rightAnchor="959.0" AnchorPane.topAnchor="132.0" />
+                        <Label fx:id="lbCarNumber" layoutX="24.0" layoutY="148.0" text="Car Number" AnchorPane.rightAnchor="1111.0" />
+                        <TextField fx:id="txtFieldMaxWeigth" layoutX="98.0" layoutY="179.0" prefHeight="39.0" prefWidth="144.0" />
+                        <Label fx:id="lbMaxWeigth" layoutX="24.0" layoutY="188.0" text="Max Weigth" />
+                        <ComboBox fx:id="comboBoxCarNumber" editable="true" layoutX="125.0" layoutY="12.0" onAction="#getSelectedRemorca" onKeyReleased="#bringfromMySql" prefHeight="39.0" prefWidth="103.0" />
+                        <Label fx:id="lblSelectCarNumber" layoutX="4.0" layoutY="22.0" prefHeight="17.0" prefWidth="116.0" text="Select Car Number" textFill="#69488c">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txtFieldUtilWeigth1" layoutX="124.0" layoutY="96.0" prefHeight="39.0" prefWidth="139.0" />
-                        <Label fx:id="lbUtilWeigth1" layoutX="42.0" layoutY="107.0" text="Util Weigth" />
-                     </children></AnchorPane>
+                        <TextField fx:id="txtFieldUtilWeigth1" layoutX="97.0" layoutY="224.0" prefHeight="39.0" prefWidth="145.0" />
+                        <Label fx:id="lbUtilWeigth1" layoutX="24.0" layoutY="233.0" text="Util Weigth" />
+                        <ComboBox fx:id="comboBoxClientCNP" editable="true" layoutX="369.0" layoutY="10.0" onAction="#getSelectedClient" onKeyReleased="#bringfromMySql" prefHeight="39.0" prefWidth="133.0" />
+                        <Label fx:id="lblSelectCNPClient" layoutX="242.0" layoutY="22.0" prefHeight="20.0" prefWidth="131.0" text="Select Client CNP" textFill="#69488c">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtFieldClientSurname" layoutX="373.0" layoutY="134.0" prefHeight="39.0" prefWidth="143.0" />
+                        <Label fx:id="lblClientName" layoutX="275.0" layoutY="234.0" text="Client Name" />
+                        <TextField fx:id="txtFieldNumeClient" layoutX="373.0" layoutY="226.0" prefHeight="39.0" prefWidth="144.0" />
+                        <Label fx:id="lblClientphone" layoutX="268.0" layoutY="195.0" text="Client phone" />
+                        <TextField fx:id="txtFieldClientPhone" layoutX="372.0" layoutY="178.0" prefHeight="39.0" prefWidth="145.0" />
+                        <Label fx:id="lbClientSurname" layoutX="270.0" layoutY="143.0" text="Client Surname" />
+                        <Button fx:id="btnGenerateContract" layoutX="567.0" layoutY="15.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="122.0" text="Generate Contract" textFill="#5016ce">
+                           <font>
+                              <Font name="System Bold Italic" size="12.0" />
+                           </font>
+                        </Button>
+                        <TextField fx:id="txtfieldSeriBIClient" layoutX="373.0" layoutY="273.0" prefHeight="39.0" prefWidth="147.0" />
+                        <Label fx:id="lblSerieBIClient" layoutX="275.0" layoutY="278.0" prefHeight="23.0" prefWidth="63.0" text="Serie Nr BI" />
+                     </children>
+                     <effect>
+                        <ColorAdjust />
+                     </effect></AnchorPane>
             </content>
           </Tab>
+            <Tab fx:id="tabAdaugClient" text="Adaug Client">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="lblNumeClient" layoutX="30.0" layoutY="51.0" text="Nume Client" />
+                        <Label fx:id="lblPrenumeClient" layoutX="30.0" layoutY="89.0" text="Prenume Client" />
+                        <TextField fx:id="txtNumeClient" layoutX="154.0" layoutY="47.0" />
+                        <TextField fx:id="txtPrenumeClient" layoutX="154.0" layoutY="85.0" />
+                        <Button fx:id="btnSaveClient" layoutX="180.0" layoutY="239.0" mnemonicParsing="false" onAction="#saveClient" text="Save Client" />
+                        <TextField fx:id="txtSerieBuletin" layoutX="153.0" layoutY="120.0" />
+                        <Label fx:id="lblSerieBuletin" layoutX="32.0" layoutY="124.0" prefHeight="17.0" prefWidth="75.0" text="Serie Buletin" />
+                        <Label fx:id="lblCNPClient" layoutX="34.0" layoutY="159.0" text="CNP Client" />
+                        <Label fx:id="lblTelClient" layoutX="31.0" layoutY="199.0" prefHeight="17.0" prefWidth="94.0" text="Telefon Client" />
+                        <TextField fx:id="txtCNPClient" layoutX="154.0" layoutY="155.0" />
+                        <TextField fx:id="txtTelClient" layoutX="154.0" layoutY="195.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab fx:id="tabAdaugCar" text="Adaug Car">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="lblCarNumber" layoutX="30.0" layoutY="51.0" text="Car Number" />
+                        <Label fx:id="lblCarRegNr" layoutX="30.0" layoutY="89.0" text="Car Registration Nr" />
+                        <TextField fx:id="txtCarNumber" layoutX="154.0" layoutY="47.0" />
+                        <TextField fx:id="txtCarRegNr" layoutX="154.0" layoutY="85.0" />
+                        <Button fx:id="btnSaveCar" layoutX="180.0" layoutY="225.0" mnemonicParsing="false" onAction="#saveCar" prefHeight="39.0" prefWidth="79.0" text="Save Car" />
+                        <TextField fx:id="txtCarOem" layoutX="153.0" layoutY="120.0" />
+                        <Label fx:id="lblCarOem" layoutX="32.0" layoutY="124.0" prefHeight="17.0" prefWidth="75.0" text="Car OEM" />
+                        <Label fx:id="lblDataVerificare" layoutX="34.0" layoutY="159.0" text="Data Verificare" />
+                        <TextField fx:id="txtDataVerificare" layoutX="154.0" layoutY="155.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
         </tabs>
       </TabPane>
    </children>
