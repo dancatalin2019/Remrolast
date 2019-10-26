@@ -64,6 +64,10 @@ public class Controller {
     public Label lblCarOem;
     public Label lblDataVerificare;
     public TextField txtDataVerificare;
+    public ComboBox comboBoxClientCNP;
+    public TextField txtFieldClientSurname;
+    public TextField txtFieldNumeClient;
+
 
     private RemorcaRepository remorcaRepository;
     private clientRepository clientRepository1;
@@ -83,7 +87,9 @@ public class Controller {
         clientRepository1 = new clientRepository(entityManager);
         carRepository =new carRepository(entityManager);
         remorcaRepository.findAll();
+        remorcaRepository.findByName("B62TRE");
         clientRepository1.findAll();
+        clientRepository1.findCNP("1750520020044");
 
 
     }
@@ -173,6 +179,25 @@ tabPane.getTabs().add(tabAdaugClient);
 
     public void openTabAddCar(ActionEvent actionEvent) {
         tabPane.getTabs().add(tabAdaugCar);
+    }
+    public void bringfromMySqlClient(KeyEvent keyEvent) {
+        comboBoxClientCNP.getItems().clear();
+        if (comboBoxClientCNP.getEditor().getText().length() >= 2) {
+            List<Client> clientList = clientRepository1.findCNP("%"+comboBoxClientCNP.getEditor().getText()+"%");
+
+            comboBoxClientCNP.getItems()
+                    .addAll(clientList);
+            comboBoxClientCNP.show();
+        }
+    }
+
+    public void getSelectedClient(ActionEvent actionEvent) {
+        if (comboBoxClientCNP.getSelectionModel().getSelectedIndex() != -1) {
+            Client client = (Client) comboBoxClientCNP.getSelectionModel().getSelectedItem();
+            txtCNPClient.setText(client.getC_cnp());
+            txtFieldClientSurname.setText(String.valueOf(client.getC_Prenume()));
+            txtFieldNumeClient.setText(String.valueOf(client.getC_Nume()));
+        }
     }
 }
 
