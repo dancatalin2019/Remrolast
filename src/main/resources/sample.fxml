@@ -22,7 +22,7 @@
 <Pane maxHeight="-Infinity" maxWidth="1300.0" minHeight="-Infinity" minWidth="1200.0" prefHeight="400.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
 
    <children>
-      <MenuBar fx:id="menuBar" maxWidth="1200.0" minWidth="1200.0" prefHeight="39.0" prefWidth="1200.0">
+      <MenuBar fx:id="menuBarPrincipal" maxWidth="1200.0" minWidth="1200.0" prefHeight="39.0" prefWidth="1200.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
@@ -39,13 +39,21 @@
                   <MenuItem fx:id="menuItemAddClient" mnemonicParsing="false" onAction="#openTabAddClient" text="Add Client" />
             </items>
           </Menu>
-            <Menu mnemonicParsing="false" text="Remove from DataBase">
+            <Menu fx:id="menuRemoveDataBase" mnemonicParsing="false" text="Remove from DataBase">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Remove Remorca" />
-                  <MenuItem mnemonicParsing="false" text="Remove Car" />
-                  <MenuItem mnemonicParsing="false" text="Remove Driver" />
-                  <MenuItem mnemonicParsing="false" text="Remove Client" />
+                  <MenuItem fx:id="menuItemRemoveRemorca" mnemonicParsing="false" onAction="#openTabDeleteRemorca" text="Remove Remorca" />
+                  <MenuItem fx:id="menuItemRemoveCar" mnemonicParsing="false" text="Remove Car" />
+                  <MenuItem fx:id="menuItemRemoveDriver" mnemonicParsing="false" text="Remove Driver" />
+                  <MenuItem fx:id="menuItemRemoveClient" mnemonicParsing="false" text="Remove Client" />
                </items>
+            </Menu>
+            <Menu fx:id="menuUpdateMySql" mnemonicParsing="false" text="Update in MySQL">
+              <items>
+                  <MenuItem fx:id="menuItemUpdateRemorca" mnemonicParsing="false" text="Update Remorca" />
+                <MenuItem fx:id="menuItemUpdateCar" mnemonicParsing="false" text="Update Car" />
+                  <MenuItem fx:id="menuItemUpdateDriver" mnemonicParsing="false" text="Update Driver" />
+                  <MenuItem fx:id="menuItemYpdateClient" mnemonicParsing="false" text="Update Client" />
+              </items>
             </Menu>
           <Menu mnemonicParsing="false" text="Show Verification Date">
             <items>
@@ -104,7 +112,7 @@
                         </Label>
                         <TextField fx:id="txtFieldUtilWeigth1" layoutX="97.0" layoutY="224.0" prefHeight="39.0" prefWidth="145.0" />
                         <Label fx:id="lbUtilWeigth1" layoutX="24.0" layoutY="233.0" text="Util Weigth" />
-                        <ComboBox fx:id="comboBoxClientCNP" editable="true" layoutX="369.0" layoutY="10.0" onAction="#getSelectedClient" onKeyReleased="#bringfromMySql" prefHeight="39.0" prefWidth="133.0" />
+                        <ComboBox fx:id="comboBoxClientCNP" editable="true" layoutX="369.0" layoutY="10.0" onAction="#getSelectedClient" onKeyReleased="#bringfromMySqlClient" prefHeight="39.0" prefWidth="133.0" />
                         <Label fx:id="lblSelectCNPClient" layoutX="242.0" layoutY="22.0" prefHeight="20.0" prefWidth="131.0" text="Select Client CNP" textFill="#69488c">
                            <font>
                               <Font size="14.0" />
@@ -164,6 +172,32 @@
                      </children>
                   </AnchorPane>
                </content>
+            </Tab>
+            <Tab fx:id="tabDeleteREmorca" text="Delete Remorca">
+              <content>
+                <AnchorPane fx:id="anchorPaneDelRemorca" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="lblSelectDelCar" layoutX="26.0" layoutY="26.0" prefHeight="27.0" prefWidth="214.0" text="Select the remorca to Delete :" textFill="#270cb1">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="cmbCartoDelete" editable="true" layoutX="227.0" layoutY="27.0" onAction="#getSelectedRemorcaforDelete" onKeyReleased="#bringfromMySqlforDelete" prefWidth="150.0" />
+                        <Label fx:id="lblthisremwillbedeleted" layoutX="26.0" layoutY="71.0" prefHeight="27.0" prefWidth="198.0" text="This is the remorca to be deleted :" textFill="#270cb1">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtRemorcadeleted" layoutX="227.0" layoutY="72.0" prefHeight="25.0" prefWidth="152.0" />
+                        <Button fx:id="btnDeleteRemorca" layoutX="234.0" layoutY="130.0" mnemonicParsing="false" onAction="#deleteRemorcaByNrImatriculare" prefHeight="58.0" prefWidth="140.0" text="DELETE REMORCA" textFill="#c90e0e" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab fx:id="tabUpdateClientandOwner" text="Update Client and Owner">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
             </Tab>
         </tabs>
       </TabPane>
