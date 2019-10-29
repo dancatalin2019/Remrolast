@@ -69,14 +69,14 @@ public class Remorca {
 
     @Override
     public String toString() {
-//        return "Remorca{" +
-//                "nr_Inmatriculare='" + nr_Inmatriculare + '\'' +
-//                ", masa_Utila=" + masa_Utila +
+       /*return "Remorca{" +
+                "nr_Inmatriculare='" + nr_Inmatriculare + '\'' +
+  //            ", masa_Utila=" + masa_Utila +
 //                ", masa_Maxima=" + masa_Maxima +
-//                ", model='" + model + '\'' +
+               ", model='" + model + '\'' +
 //                ", nr_Identificare='" + nr_Identificare + '\'' +
 //                ", data_Verificare=" + data_Verificare +
-//                '}';
+                '}';*/
         return nr_Inmatriculare;
     }
 }

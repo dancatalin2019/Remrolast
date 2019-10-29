@@ -7,11 +7,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 
-public class carRepository {
+public class CarRepository {
 
     private EntityManager entityManager;
 
-    public carRepository(EntityManager entityManager) {
+    public CarRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
