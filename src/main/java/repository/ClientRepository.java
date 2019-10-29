@@ -1,17 +1,16 @@
 package repository;
 
 import model.Client;
-import model.Remorca;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 
-public class clientRepository {
+public class ClientRepository {
 
     private EntityManager entityManager;
 
-    public clientRepository(EntityManager entityManager) {
+    public ClientRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
@@ -23,6 +22,31 @@ public class clientRepository {
 
         entityManager.getTransaction().commit();//to commit the transaction in database
     }
+
+
+
+    public void FindClientbyCMP(String c_cnp) {
+        Client clientt =entityManager.find(Client.class,c_cnp);
+        System.out.println("Clientul este : "+clientt);
+
+    }
+    public void DeleteClientbyCMP(String c_cnp) {
+        Client clientt =entityManager.find(Client.class,c_cnp);
+        entityManager.getTransaction().begin();
+        entityManager.remove(clientt);
+        entityManager.getTransaction().commit();
+
+
+    }
+    public void updateTelefon(String c_cnp) {
+        Client clientt =entityManager.find(Client.class,c_cnp);
+        entityManager.getTransaction().begin();
+        clientt.setC_nr_Telefon("telefon nou update");
+        entityManager.getTransaction().commit();
+
+
+    }
+
 
 //    public void someMethod() {
 //        for (int i = 0; i< 25; i++) {
