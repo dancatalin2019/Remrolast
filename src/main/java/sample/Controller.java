@@ -3,20 +3,20 @@ package sample;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import model.Car;
 import model.Client;
 import model.Remorca;
 import repository.Constants;
 import repository.RemorcaRepository;
-import repository.carRepository;
+import repository.CarRepository;
 import repository.clientRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.List;
-import java.util.Optional;
 
 public class Controller {
     public PasswordField pswfield;
@@ -67,17 +67,30 @@ public class Controller {
     public ComboBox comboBoxClientCNP;
     public TextField txtFieldClientSurname;
     public TextField txtFieldNumeClient;
+    public Tab tabDeleteCar;
+    public AnchorPane anchorPaneDelRemorca;
+    public Label lblSelectDelCar;
+    public ComboBox cmbCartoDelete;
+    public Button btnDeleteRemorca;
+    public Tab tabUpdateClientandOwner;
+    public Tab tabDeleteREmorca;
+    public MenuBar menuBarUpdateVCientOwner;
+    public MenuItem menuItemRemoveRemorca;
+    public TextField txtRemorcadeleted;
 
 
     private RemorcaRepository remorcaRepository;
     private clientRepository clientRepository1;
-    private carRepository carRepository;
+    private CarRepository carRepository;
 
     public void initialize() {
        tabPane.getTabs().remove(tabMain);
        tabPane.getTabs().remove(tabLogin);
         tabPane.getTabs().remove(tabAdaugClient);
         tabPane.getTabs().remove(tabAdaugCar);
+        tabPane.getTabs().remove(tabDeleteCar);
+        tabPane.getTabs().remove(tabUpdateClientandOwner);
+        tabPane.getTabs().remove(tabDeleteREmorca);
 
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Remorci");
 
@@ -85,11 +98,16 @@ public class Controller {
 
         remorcaRepository = new RemorcaRepository(entityManager);
         clientRepository1 = new clientRepository(entityManager);
-        carRepository =new carRepository(entityManager);
+        carRepository =new CarRepository(entityManager);
         remorcaRepository.findAll();
         remorcaRepository.findByName("B62TRE");
         clientRepository1.findAll();
         clientRepository1.findCNP("1750520020044");
+        clientRepository1.FindClientbyCMP("1750520020044");
+        //clientRepository1.DeleteClientbyCMP("1750520020044");
+        clientRepository1.updateTelefon("173547");
+        remorcaRepository.findByName("B62TRE");
+        //remorcaRepository.DeleteRemorcabyNrInmatriculare("B62TRE");
 
 
     }
@@ -198,6 +216,33 @@ tabPane.getTabs().add(tabAdaugClient);
             txtFieldClientSurname.setText(String.valueOf(client.getC_Prenume()));
             txtFieldNumeClient.setText(String.valueOf(client.getC_Nume()));
         }
+    }
+
+    public void openTabDeleteRemorca(ActionEvent actionEvent) {
+        tabPane.getTabs().add(tabDeleteREmorca);
+    }
+
+    public void getSelectedRemorcaforDelete(ActionEvent actionEvent) {
+        if (cmbCartoDelete.getSelectionModel().getSelectedIndex() != -1) {
+            Remorca remorca = (Remorca) cmbCartoDelete.getSelectionModel().getSelectedItem();
+            txtRemorcadeleted.setText(remorca.getNr_Inmatriculare());
+
+        }
+    }
+
+    public void bringfromMySqlforDelete(KeyEvent keyEvent) {
+        cmbCartoDelete.getItems().clear();
+        if (cmbCartoDelete.getEditor().getText().length() >= 2) {
+            List<Remorca> remorcaList = remorcaRepository.findByName("%" + cmbCartoDelete.getEditor().getText() + "%");
+
+            cmbCartoDelete.getItems()
+                    .addAll(remorcaList);
+            cmbCartoDelete.show();
+        }
+    }
+
+    public void deleteRemorcaByNrImatriculare(ActionEvent actionEvent) {
+        remorcaRepository.DeleteRemorcabyNrInmatriculare(txtRemorcadeleted.getText());
     }
 }
 
