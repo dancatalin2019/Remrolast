@@ -3,6 +3,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.Client;
 import model.Remorca;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
@@ -10,13 +11,19 @@ import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTBookmark;
 import repository.RemorcaRepository;
+import repository.clientRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 public class Main extends Application {
@@ -24,14 +31,23 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("sample.fxml"));
         primaryStage.setTitle("REMRO FLEET MANAGEMENT");
-        primaryStage.setScene(new Scene(root, 429, 300));
-        primaryStage.setMinHeight(100);
-        primaryStage.setMinWidth(100);
+        primaryStage.setScene(new Scene(root, 700, 500));
+        primaryStage.setMinHeight(400);
+        primaryStage.setMaxHeight(500);
+        primaryStage.setMinWidth(700);
+        primaryStage.setMaxWidth(800);
 
         primaryStage.show();
     }
 
     public static void main(String[] args) throws Exception {
+        Client client1=new Client();
+        client1.setC_Nume("Gligor");
+        client1.setC_Nume("Ciprian");
+        Remorca rem1 = new Remorca();
+        //remorcaRepository.save(entityManager, rem1);
+        //clientRepository.save(Client, client1);
+
 
       /*  Remorca rem1 = new Remorca();
         rem1.setNr_Inmatriculare("B71TRE");
@@ -49,7 +65,8 @@ public class Main extends Application {
 
 
 
-//        remorcaRepository.save(entityManager, rem1);
+       remorcaRepository.save(entityManager, rem1);
+
 //        remorcaRepository.save(entityManager, rem2);
 
         for (Remorca r : remorcaRepository.findAll(entityManager)) {
@@ -97,8 +114,93 @@ caut in document bookmarurile (e.g, caut numar_inmatriculare, si cu POI pot scri
         System.out.println("createparagraph.docx written successfully");
 
 */
+
+        try {
+
+            openFile("C:\\Users\\User\\IdeaProjects\\Remro\\src\\main\\resources\\template.docx");
+            insertAtBookmark("nr_remorca", "B60TRE");
+           saveAs("C:\\Users\\User\\IdeaProjects\\Remro\\src\\main\\resources\\contract.docx");
+        }
+        catch(Exception ex) {
+            System.out.println("Caught a: " + ex.getClass().getName());
+            System.out.println("Message: " + ex.getMessage());
+            System.out.println("Stacktrace follows:.....");
+            ex.printStackTrace(System.out);
+        }
+
         Main.launch(args);
 
 
+
+    }
+
+    private static XWPFDocument document = null;
+
+    public static void openFile(String filename) throws IOException {
+        File file = null;
+        FileInputStream fis = null;
+        try {
+            file = new File(filename);
+            fis = new FileInputStream(file);
+            document = new XWPFDocument(fis);
+        }
+        finally {
+            try {
+                if(fis != null) {
+                    fis.close();
+                    fis = null;
+                }
+            }
+            catch(IOException ioEx) {
+                // Swallow this exception. It would have occured onyl
+                // when releasing the file handle and should not pose
+                // problems to later processing.
+            }
+        }
+    }
+
+    public static void saveAs(String filename) throws IOException {
+        File file = null;
+        FileOutputStream fos = null;
+        try {
+            file = new File(filename);
+            fos = new FileOutputStream(file);
+            document.write(fos);
+        }
+        finally {
+            if(fos != null) {
+                fos.close();
+                fos = null;
+            }
+        }
+    }
+
+    public static void insertAtBookmark(String bookmarkName, String bookmarkValue) {
+        List<XWPFParagraph> paraList = null;
+        Iterator<XWPFParagraph> paraIter = null;
+        XWPFParagraph para = null;
+        List<CTBookmark> bookmarkList = null;
+        Iterator<CTBookmark> bookmarkIter = null;
+        CTBookmark bookmark = null;
+        XWPFRun run = null;
+
+        paraList = document.getParagraphs();
+        paraIter = paraList.iterator();
+
+        while(paraIter.hasNext()) {
+            para = paraIter.next();
+
+            bookmarkList = para.getCTP().getBookmarkStartList();
+            bookmarkIter = bookmarkList.iterator();
+
+            while(bookmarkIter.hasNext()) {
+                bookmark = bookmarkIter.next();
+                if(bookmark.getName().equals(bookmarkName)) {
+                    run = para.createRun();
+                    run.setText(bookmarkValue);
+                    para.getCTP().getDomNode().insertBefore(run.getCTR().getDomNode(), bookmark.getDomNode());
+                }
+            }
+        }
     }
 }
