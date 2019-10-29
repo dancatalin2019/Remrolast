@@ -8,23 +8,14 @@ import model.Remorca;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTBookmark;
-import repository.RemorcaRepository;
-import repository.clientRepository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
 public class Main extends Application {
     @Override
@@ -46,7 +37,7 @@ public class Main extends Application {
         client1.setC_Nume("Ciprian");
         Remorca rem1 = new Remorca();
         //remorcaRepository.save(entityManager, rem1);
-        //clientRepository.save(Client, client1);
+        //ClientRepository.save(Client, client1);
 
 
       /*  Remorca rem1 = new Remorca();
