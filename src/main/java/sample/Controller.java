@@ -8,10 +8,10 @@ import javafx.scene.paint.Color;
 import model.Car;
 import model.Client;
 import model.Remorca;
+import repository.ClientRepository;
 import repository.Constants;
 import repository.RemorcaRepository;
 import repository.CarRepository;
-import repository.clientRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -80,7 +80,7 @@ public class Controller {
 
 
     private RemorcaRepository remorcaRepository;
-    private clientRepository clientRepository1;
+    private ClientRepository clientRepository1;
     private CarRepository carRepository;
 
     public void initialize() {
@@ -97,7 +97,7 @@ public class Controller {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         remorcaRepository = new RemorcaRepository(entityManager);
-        clientRepository1 = new clientRepository(entityManager);
+        clientRepository1 = new ClientRepository(entityManager);
         carRepository =new CarRepository(entityManager);
         remorcaRepository.findAll();
         remorcaRepository.findByName("B62TRE");
