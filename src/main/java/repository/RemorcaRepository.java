@@ -1,5 +1,6 @@
 package repository;
 
+import model.Client;
 import model.Remorca;
 
 import javax.persistence.EntityManager;
@@ -39,22 +40,40 @@ public class RemorcaRepository {
 //    }
 
     public List<Remorca> findAll() {
-        Query query = entityManager.createQuery("SELECT r from Remorca r"); // SELECT * FROM Remorca
-        List<Remorca> remorci = query.getResultList();
+        Query query = entityManager.createQuery("SELECT r from Remorca r");
+        System.out.println(query);// SELECT * FROM Remorca
+        List<Remorca> remorciall = query.getResultList();
+        System.out.println(remorciall);
 
-        return remorci;//entityManager.createQuery("SELECT r from Remorca r").getResultList();
+
+        //entityManager.createQuery("SELECT r from Remorca r").getResultList();
+        return remorciall;
 
     }
 
     public List<Remorca> findByName(String nrInmatriculare) {
         Query query = entityManager.createQuery("SELECT r from Remorca r WHERE r.nr_Inmatriculare LIKE :nrInmatriculare");
         query.setParameter("nrInmatriculare", nrInmatriculare);
-        List<Remorca> remorci = query.getResultList();
+        List<Remorca> remorcibyname = query.getResultList();
+        System.out.println(remorcibyname);
 
 //        return entityManager.createQuery("SELECT r from Remorca r WHERE r.nr_Inmatriculare LIKE :nrInmatriculare")
 //                .setParameter("nrInmatriculare", nrInmatriculare)
 //                .getResultList();
-        return remorci;
+        return remorcibyname;
+    }
+    public void FindRemorcabyNrInmatriculare(String nr_Inmatriculare) {
+        Remorca remorca =entityManager.find(Remorca.class,nr_Inmatriculare);
+        System.out.println("Remorca este : "+remorca);
+
+    }
+    public void DeleteRemorcabyNrInmatriculare(String nr_Inmatriculare) {
+        Remorca remorcas =entityManager.find(Remorca.class,nr_Inmatriculare);
+        entityManager.getTransaction().begin();
+        entityManager.remove(remorcas);
+        entityManager.getTransaction().commit();
+
+
     }
 
 
