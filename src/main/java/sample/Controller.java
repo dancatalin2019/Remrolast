@@ -77,6 +77,32 @@ public class Controller {
     public MenuBar menuBarUpdateVCientOwner;
     public MenuItem menuItemRemoveRemorca;
     public TextField txtRemorcadeleted;
+    public TextField txtNrnmatriculare;
+    public TextField txtMasaUtila;
+    public TextField txtMasaMaxima;
+    public TextField txtModel;
+    public Label lblNrInmatriculare;
+    public Label lblMasaUtile;
+    public Label lblMasaMaxima;
+    public Label lblModel;
+    public Button btnSaveRemorca;
+    public TextField txtNrnmatriculareRem;
+    public TextField txtMasaUtilaRem;
+    public TextField txtMasaMaximaRem;
+    public TextField txtModelRem;
+    public Tab tabAdaugRemorca;
+    public MenuItem menuItemUpdateRemorca;
+    public ComboBox comboCNPClientUpdate;
+    public Label lblCNPClientUpdate;
+    public Label lblNumeClientUpdate;
+    public Label lblPrenumeClientUpdate;
+    public TextField txtNumeClientUpdate;
+    public TextField txtPrenumeClientUpdate;
+    public TextField txtTelActualClient;
+    public Button btnUpdateTelClient;
+    public Label lblTelactualClient;
+    public TextField txtTelClientUpdated;
+    public AnchorPane tabAnchorPaneUpdateClientandOwner;
 
 
     private RemorcaRepository remorcaRepository;
@@ -91,6 +117,7 @@ public class Controller {
         tabPane.getTabs().remove(tabDeleteCar);
         tabPane.getTabs().remove(tabUpdateClientandOwner);
         tabPane.getTabs().remove(tabDeleteREmorca);
+        tabPane.getTabs().remove(tabAdaugRemorca);
 
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Remorci");
 
@@ -99,14 +126,14 @@ public class Controller {
         remorcaRepository = new RemorcaRepository(entityManager);
         clientRepository1 = new ClientRepository(entityManager);
         carRepository =new CarRepository(entityManager);
-        remorcaRepository.findAll();
-        remorcaRepository.findByName("B62TRE");
-        clientRepository1.findAll();
-        clientRepository1.findCNP("1750520020044");
-        clientRepository1.FindClientbyCMP("1750520020044");
+        //remorcaRepository.findAll();
+        //remorcaRepository.findByName("B62TRE");
+        //clientRepository1.findAll();
+        //clientRepository1.findCNP("1750520020044");
+        //clientRepository1.FindClientbyCMP("1750520020044");
         //clientRepository1.DeleteClientbyCMP("1750520020044");
-        clientRepository1.updateTelefon("173547");
-        remorcaRepository.findByName("B62TRE");
+        //clientRepository1.updateTelefon("173547");
+        //remorcaRepository.findByName("B62TRE");
         //remorcaRepository.DeleteRemorcabyNrInmatriculare("B62TRE");
 
 
@@ -222,13 +249,17 @@ tabPane.getTabs().add(tabAdaugClient);
         tabPane.getTabs().add(tabDeleteREmorca);
     }
 
-    public void getSelectedRemorcaforDelete(ActionEvent actionEvent) {
-        if (cmbCartoDelete.getSelectionModel().getSelectedIndex() != -1) {
-            Remorca remorca = (Remorca) cmbCartoDelete.getSelectionModel().getSelectedItem();
-            txtRemorcadeleted.setText(remorca.getNr_Inmatriculare());
-
-        }
+    public void getSelectedRemorcaforDelete(ActionEvent actionEvent)
+    { if (cmbCartoDelete.getSelectionModel().getSelectedIndex() != -1)
+    { try
+    { Remorca remorca = (Remorca) cmbCartoDelete.getSelectionModel().getSelectedItem();
+    txtRemorcadeleted.setText(remorca.getNr_Inmatriculare());
+       }
+    catch (Exception ex)
+    { System.out.println("Something wrong"); }
     }
+    }
+
 
     public void bringfromMySqlforDelete(KeyEvent keyEvent) {
         cmbCartoDelete.getItems().clear();
@@ -242,7 +273,55 @@ tabPane.getTabs().add(tabAdaugClient);
     }
 
     public void deleteRemorcaByNrImatriculare(ActionEvent actionEvent) {
+        cmbCartoDelete.getItems().clear();
         remorcaRepository.DeleteRemorcabyNrInmatriculare(txtRemorcadeleted.getText());
+
+        txtRemorcadeleted.clear();
+
+
+    }
+
+    public void saveRemorcainMySQL(ActionEvent actionEvent) {
+        Remorca remorca=new Remorca();
+        remorca.setNr_Inmatriculare(txtNrnmatriculareRem.getText());
+        remorca.setModel(txtModelRem.getText());
+        remorca.setMasa_Maxima(txtMasaMaximaRem.getText());
+        remorca.setMasa_Utila(txtMasaUtilaRem.getText());
+        remorcaRepository.save(remorca);
+    }
+
+    public void openTabAddRemorca(ActionEvent actionEvent) {
+        tabPane.getTabs().add(tabAdaugRemorca);
+    }
+
+    public void updateTelClient(ActionEvent actionEvent) {
+
+    }
+
+    public void openTabUpdateClientandOwner(ActionEvent actionEvent) {
+        tabPane.getTabs().add(tabUpdateClientandOwner);
+    }
+
+    public void selectClientUpdateTel(ActionEvent actionEvent) {
+        if (comboCNPClientUpdate.getSelectionModel().getSelectedIndex() != -1) {
+            Client client = (Client) comboCNPClientUpdate.getSelectionModel().getSelectedItem();
+            txtNumeClientUpdate.setText(client.getC_Nume());
+            txtPrenumeClientUpdate.setText(String.valueOf(client.getC_Prenume()));
+
+            txtTelActualClient.setText(String.valueOf(client.getC_nr_Telefon()));
+        }
+
+    }
+
+    public void bringMySQLCNPClinetforTelupdate(KeyEvent keyEvent) {
+        comboCNPClientUpdate.getItems().clear();
+        if (comboCNPClientUpdate.getEditor().getText().length() >= 2) {
+            List<Client> clientList = clientRepository1.findCNP("%"+comboCNPClientUpdate.getEditor().getText()+"%");
+
+            comboCNPClientUpdate.getItems()
+                    .addAll(clientList);
+            comboCNPClientUpdate.show();
+        }
     }
 }
 
