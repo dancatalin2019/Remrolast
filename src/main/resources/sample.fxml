@@ -31,9 +31,9 @@
                   <MenuItem fx:id="tabLogOut" mnemonicParsing="false" onAction="#logoutUser" text="Logout" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Add to DataBase">
+          <Menu fx:id="mnuAddToDataBase" mnemonicParsing="false" text="Add to DataBase">
             <items>
-              <MenuItem mnemonicParsing="false" text="Add Remorca" />
+              <MenuItem fx:id="mnuItemAddRemorca" mnemonicParsing="false" onAction="#openTabAddRemorca" text="Add Remorca" />
                   <MenuItem fx:id="menuItemAddCar" mnemonicParsing="false" onAction="#openTabAddCar" text="Add Car" />
                   <MenuItem mnemonicParsing="false" text="Add Driver" />
                   <MenuItem fx:id="menuItemAddClient" mnemonicParsing="false" onAction="#openTabAddClient" text="Add Client" />
@@ -52,7 +52,7 @@
                   <MenuItem fx:id="menuItemUpdateRemorca" mnemonicParsing="false" text="Update Remorca" />
                 <MenuItem fx:id="menuItemUpdateCar" mnemonicParsing="false" text="Update Car" />
                   <MenuItem fx:id="menuItemUpdateDriver" mnemonicParsing="false" text="Update Driver" />
-                  <MenuItem fx:id="menuItemYpdateClient" mnemonicParsing="false" text="Update Client" />
+                  <MenuItem fx:id="menuItemUpdateClientandOwner" mnemonicParsing="false" onAction="#openTabUpdateClientandOwner" text="Update ClientandOwner" />
               </items>
             </Menu>
           <Menu mnemonicParsing="false" text="Show Verification Date">
@@ -196,7 +196,41 @@
             </Tab>
             <Tab fx:id="tabUpdateClientandOwner" text="Update Client and Owner">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane fx:id="tabAnchorPaneUpdateClientandOwner" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ComboBox fx:id="comboCNPClientUpdate" editable="true" layoutX="131.0" layoutY="14.0" onAction="#selectClientUpdateTel" onKeyReleased="#bringMySQLCNPClinetforTelupdate" prefWidth="150.0" />
+                        <Label fx:id="lblCNPClientUpdate" layoutX="22.0" layoutY="18.0" prefHeight="17.0" prefWidth="102.0" text="Select CNP Client" />
+                        <Label fx:id="lblNumeClientUpdate" layoutX="22.0" layoutY="57.0" prefHeight="17.0" prefWidth="89.0" text="Nume Client" />
+                        <Label fx:id="lblPrenumeClientUpdate" layoutX="22.0" layoutY="90.0" text="Prenume Client" />
+                        <TextField fx:id="txtNumeClientUpdate" layoutX="132.0" layoutY="53.0" />
+                        <TextField fx:id="txtPrenumeClientUpdate" layoutX="132.0" layoutY="86.0" />
+                        <TextField fx:id="txtTelActualClient" layoutX="132.0" layoutY="125.0" />
+                        <Button fx:id="btnUpdateTelClient" layoutX="141.0" layoutY="238.0" mnemonicParsing="false" onAction="#updateTelClient" text="Update Telefon Client" />
+                        <Label fx:id="lblTelactualClient" layoutX="22.0" layoutY="129.0" prefHeight="17.0" prefWidth="84.0" text="Telefon Actual" />
+                        <Label layoutX="19.0" layoutY="182.0" text="New Phone Number" />
+                        <TextField fx:id="txtTelClientUpdated" layoutX="133.0" layoutY="178.0" />
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+            <Tab fx:id="tabAdaugRemorca" text="Adaug Remorca">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="txtNrnmatriculareRem" layoutX="159.0" layoutY="38.0" />
+                        <TextField fx:id="txtMasaUtilaRem" layoutX="159.0" layoutY="73.0" />
+                        <TextField fx:id="txtMasaMaximaRem" layoutX="159.0" layoutY="109.0" />
+                        <TextField fx:id="txtModelRem" layoutX="159.0" layoutY="142.0" />
+                        <Label fx:id="lblNrInmatriculare" layoutX="62.0" layoutY="42.0" text="Nr Inmatriculare" />
+                        <Label fx:id="lblMasaUtile" layoutX="73.0" layoutY="77.0" text="Masa Utila" />
+                        <Label fx:id="lblMasaMaxima" layoutX="73.0" layoutY="113.0" text="Masa Maxima" />
+                        <Label fx:id="lblModel" layoutX="89.0" layoutY="146.0" text="Model" />
+                        <Button fx:id="btnSaveRemorca" layoutX="177.0" layoutY="192.0" mnemonicParsing="false" onAction="#saveRemorcainMySQL" text="Save Remorca">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
               </content>
             </Tab>
         </tabs>
