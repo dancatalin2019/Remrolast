@@ -15,6 +15,8 @@
 <?import javafx.scene.effect.Light.Distant?>
 <?import javafx.scene.effect.Lighting?>
 <?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -64,6 +66,12 @@
                <items>
                   <MenuItem mnemonicParsing="false" text="About" />
                </items>
+            </Menu>
+            <Menu fx:id="menuCalculator" mnemonicParsing="false" text="Calculator">
+              <items>
+                <MenuItem fx:id="mnuItemSuma" mnemonicParsing="false" onAction="#openTabSuma" text="Suma" />
+                  <MenuItem fx:id="mnuItemDiferenta" mnemonicParsing="false" onAction="#openTabDiferenta" text="Diferenta" />
+              </items>
             </Menu>
         </menus>
          <effect>
@@ -130,6 +138,11 @@
                            </font>
                         </Button>
                         <TextField fx:id="txtfieldSeriBIClient" layoutX="373.0" layoutY="273.0" prefHeight="39.0" prefWidth="147.0" />
+                        <ImageView fitHeight="85.0" fitWidth="225.0" layoutX="539.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../Desktop/remropic.png" />
+                           </image>
+                        </ImageView>
                         <Label fx:id="lblSerieBIClient" layoutX="275.0" layoutY="278.0" prefHeight="23.0" prefWidth="63.0" text="Serie Nr BI" />
                      </children>
                      <effect>
@@ -231,6 +244,30 @@
                         </Button>
                      </children>
                   </AnchorPane>
+              </content>
+            </Tab>
+            <Tab fx:id="tabCalculezSuma" text="Calculez Suma">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="txtPrimulNr" layoutX="218.0" layoutY="24.0" prefHeight="31.0" prefWidth="159.0" />
+                        <Label fx:id="lblprimulnr" layoutX="42.0" layoutY="28.0" prefHeight="26.0" prefWidth="159.0" text="Introducetii primul nr :" />
+                        <Label fx:id="lblal2leaNr" layoutX="42.0" layoutY="69.0" prefHeight="17.0" prefWidth="121.0" text="Introduceti al 2 lea nr :" />
+                        <TextField fx:id="txtal2leaNr" layoutX="218.0" layoutY="65.0" prefHeight="30.0" prefWidth="160.0" />
+                        <TextField fx:id="txtRezultat" layoutX="223.0" layoutY="186.0" />
+                        <Button fx:id="btnSuma" layoutX="227.0" layoutY="110.0" mnemonicParsing="false" onAction="#calculeazaSuma" prefHeight="51.0" prefWidth="142.0" text="Calculeaza Suma" textFill="#4817d0">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                        <Label fx:id="lnlRezultat" layoutX="71.0" layoutY="186.0" prefHeight="27.0" prefWidth="120.0" text="Rezultatul este :" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab fx:id="tabCalcDiferenta" text="Calculez Diferenta">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
               </content>
             </Tab>
         </tabs>
