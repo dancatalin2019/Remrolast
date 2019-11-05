@@ -12,6 +12,7 @@ import repository.ClientRepository;
 import repository.Constants;
 import repository.RemorcaRepository;
 import repository.CarRepository;
+import repositoryCalculator.SumaRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -103,11 +104,22 @@ public class Controller {
     public Label lblTelactualClient;
     public TextField txtTelClientUpdated;
     public AnchorPane tabAnchorPaneUpdateClientandOwner;
+    public Tab tabCalculezSuma;
+    public Label lblprimulnr;
+    public Label lblal2leaNr;
+    public TextField txtRezultat;
+    public Button btnSuma;
+    public Label lnlRezultat;
+    public Tab tabCalcDiferenta;
+    public MenuItem mnuItemSuma;
+    public TextField txtPrimulNr;
+    public TextField txtal2leaNr;
 
 
     private RemorcaRepository remorcaRepository;
     private ClientRepository clientRepository1;
     private CarRepository carRepository;
+
 
     public void initialize() {
        tabPane.getTabs().remove(tabMain);
@@ -118,6 +130,8 @@ public class Controller {
         tabPane.getTabs().remove(tabUpdateClientandOwner);
         tabPane.getTabs().remove(tabDeleteREmorca);
         tabPane.getTabs().remove(tabAdaugRemorca);
+        tabPane.getTabs().remove(tabCalcDiferenta);
+        tabPane.getTabs().remove(tabCalculezSuma);
 
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Remorci");
 
@@ -236,14 +250,17 @@ tabPane.getTabs().add(tabAdaugClient);
         }
     }
 
-    public void getSelectedClient(ActionEvent actionEvent) {
-        if (comboBoxClientCNP.getSelectionModel().getSelectedIndex() != -1) {
-            Client client = (Client) comboBoxClientCNP.getSelectionModel().getSelectedItem();
+    public void getSelectedClient(ActionEvent actionEvent)
+    { if (comboBoxClientCNP.getSelectionModel().getSelectedIndex() != -1) {
+        try
+        {Client client = (Client) comboBoxClientCNP.getSelectionModel().getSelectedItem();
             txtCNPClient.setText(client.getC_cnp());
             txtFieldClientSurname.setText(String.valueOf(client.getC_Prenume()));
             txtFieldNumeClient.setText(String.valueOf(client.getC_Nume()));
         }
-    }
+        catch (Exception ex)
+        { System.out.println("Something wrong"); }
+    }}
 
     public void openTabDeleteRemorca(ActionEvent actionEvent) {
         tabPane.getTabs().add(tabDeleteREmorca);
@@ -295,6 +312,7 @@ tabPane.getTabs().add(tabAdaugClient);
     }
 
     public void updateTelClient(ActionEvent actionEvent) {
+        clientRepository1.updateTelefon("1750520020044",txtTelClientUpdated.getText());
 
     }
 
@@ -303,6 +321,7 @@ tabPane.getTabs().add(tabAdaugClient);
     }
 
     public void selectClientUpdateTel(ActionEvent actionEvent) {
+        System.out.println(actionEvent.getEventType());
         if (comboCNPClientUpdate.getSelectionModel().getSelectedIndex() != -1) {
             Client client = (Client) comboCNPClientUpdate.getSelectionModel().getSelectedItem();
             txtNumeClientUpdate.setText(client.getC_Nume());
@@ -323,5 +342,25 @@ tabPane.getTabs().add(tabAdaugClient);
             comboCNPClientUpdate.show();
         }
     }
+
+    public void calculeazaSuma(ActionEvent actionEvent) {
+
+        SumaRepository sr = new SumaRepository();
+        int rez=sr.calculezSuma(Integer.parseInt(txtPrimulNr.getText()),Integer.parseInt(txtal2leaNr.getText()));
+        txtRezultat.setText(rez + "");
+
+
+    }
+
+    public void openTabSuma(ActionEvent actionEvent) {
+        tabPane.getTabs().add(tabCalculezSuma);
+    }
+
+    public void openTabDiferenta(ActionEvent actionEvent) {
+        tabPane.getTabs().add(tabCalcDiferenta);
+
+    }
+
+
 }
 
