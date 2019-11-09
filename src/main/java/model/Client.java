@@ -60,14 +60,14 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client{" +
+        /*return "Client{" +
                 "c_Nume='" + c_Nume + '\'' +
                 ", c_Prenume='" + c_Prenume + '\'' +
                 ", c_cnp='" + c_cnp + '\'' +
                 ", serie_Buletin='" + serie_Buletin + '\'' +
                 ", c_nr_Telefon='" + c_nr_Telefon + '\'' +
-                '}';
-        //return c_cnp;
+                '}';*/
+        return c_cnp;
 
     }
 }

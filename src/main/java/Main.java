@@ -20,7 +20,8 @@ import java.util.List;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("sample.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Parent root = fxmlLoader.load(getClass().getResourceAsStream("sample.fxml"));
         primaryStage.setTitle("REMRO FLEET MANAGEMENT");
         primaryStage.setScene(new Scene(root, 700, 500));
         primaryStage.setMinHeight(400);

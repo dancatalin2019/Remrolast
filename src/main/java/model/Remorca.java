@@ -11,8 +11,8 @@ import java.sql.Date;
 public class Remorca {
 @Id
     private String nr_Inmatriculare;
-    private int masa_Utila;
-    private int masa_Maxima;
+    private String masa_Utila;
+    private String masa_Maxima;
     private String model;
     private String nr_Identificare;
     private Date data_Verificare;
@@ -27,19 +27,19 @@ public class Remorca {
         this.nr_Inmatriculare = nr_Inmatriculare;
     }
 
-    public int getMasa_Utila() {
+    public String getMasa_Utila() {
         return masa_Utila;
     }
 
-    public void setMasa_Utila(int masa_Utila) {
+    public void setMasa_Utila(String masa_Utila) {
         this.masa_Utila = masa_Utila;
     }
 
-    public int getMasa_Maxima() {
+    public String getMasa_Maxima() {
         return masa_Maxima;
     }
 
-    public void setMasa_Maxima(int masa_Maxima) {
+    public void setMasa_Maxima(String masa_Maxima) {
         this.masa_Maxima = masa_Maxima;
     }
 

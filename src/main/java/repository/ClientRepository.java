@@ -38,10 +38,10 @@ public class ClientRepository {
 
 
     }
-    public void updateTelefon(String c_cnp) {
+    public void updateTelefon(String c_cnp,String newNumber) {
         Client clientt =entityManager.find(Client.class,c_cnp);
         entityManager.getTransaction().begin();
-        clientt.setC_nr_Telefon("telefon nou update");
+        clientt.setC_nr_Telefon(newNumber);
         entityManager.getTransaction().commit();
 
 

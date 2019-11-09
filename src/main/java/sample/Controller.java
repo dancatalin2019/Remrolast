@@ -321,9 +321,12 @@ tabPane.getTabs().add(tabAdaugClient);
     }
 
     public void selectClientUpdateTel(ActionEvent actionEvent) {
+
         System.out.println(actionEvent.getEventType());
         if (comboCNPClientUpdate.getSelectionModel().getSelectedIndex() != -1) {
+
             Client client = (Client) comboCNPClientUpdate.getSelectionModel().getSelectedItem();
+
             txtNumeClientUpdate.setText(client.getC_Nume());
             txtPrenumeClientUpdate.setText(String.valueOf(client.getC_Prenume()));
 
@@ -339,7 +342,9 @@ tabPane.getTabs().add(tabAdaugClient);
 
             comboCNPClientUpdate.getItems()
                     .addAll(clientList);
+            txtTelClientUpdated.requestFocus();
             comboCNPClientUpdate.show();
+
         }
     }
 
