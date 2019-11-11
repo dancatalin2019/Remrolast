@@ -33,6 +33,7 @@
           </Menu>
           <Menu fx:id="mnuAddToDataBase" mnemonicParsing="false" text="Add to DataBase">
             <items>
+                  <MenuItem mnemonicParsing="false" text="Add Owner" />
               <MenuItem fx:id="mnuItemAddRemorca" mnemonicParsing="false" onAction="#openTabAddRemorca" text="Add Remorca" />
                   <MenuItem fx:id="menuItemAddCar" mnemonicParsing="false" onAction="#openTabAddCar" text="Add Car" />
                   <MenuItem mnemonicParsing="false" text="Add Driver" />
@@ -89,6 +90,31 @@
       </MenuBar>
       <TabPane fx:id="tabPane" layoutX="1.0" layoutY="38.0" prefHeight="363.0" prefWidth="1200.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
+            <Tab text="Add Owner">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="lblOwnerName" layoutX="35.0" layoutY="31.0" text="Owner Name" />
+                        <Label fx:id="lblOwnerSurname" layoutX="35.0" layoutY="59.0" text="Owner Surname" />
+                        <Label fx:id="lblOwnerCity" layoutX="35.0" layoutY="85.0" text="Owner City" />
+                        <Label fx:id="lblOwnerStreet" layoutX="35.0" layoutY="113.0" text="Owner Street" />
+                        <Label fx:id="lblOwnerHouseNr" layoutX="35.0" layoutY="150.0" text="Owner House nr" />
+                        <Label fx:id="lblOwnerBI" layoutX="35.0" layoutY="178.0" prefHeight="17.0" prefWidth="62.0" text="Owner B.I." />
+                        <Label fx:id="lblOwnerCNP" layoutX="35.0" layoutY="204.0" text="Owner CNP" />
+                        <Label fx:id="lblOwnerPhone" layoutX="35.0" layoutY="234.0" text="Owner Phone" />
+                        <TextField fx:id="txtOwnerName" layoutX="180.0" layoutY="27.0" />
+                        <TextField fx:id="txtOwnerSurname" layoutX="180.0" layoutY="55.0" />
+                        <TextField fx:id="txtOwnerCity" layoutX="180.0" layoutY="81.0" />
+                        <TextField fx:id="txtOwnerStreet" layoutX="180.0" layoutY="109.0" />
+                        <TextField fx:id="txtOwnerHouseNr" layoutX="180.0" layoutY="146.0" />
+                        <TextField fx:id="txtOwnerBI" layoutX="180.0" layoutY="174.0" />
+                        <TextField fx:id="txtOwnerCNP" layoutX="180.0" layoutY="200.0" />
+                        <TextField fx:id="txtAddOwnerPhone" layoutX="180.0" layoutY="230.0" />
+                        <Button fx:id="btnSaveOwnerMySQL" layoutX="189.0" layoutY="270.0" mnemonicParsing="false" onAction="#saveOwnerinMySQL" text="Save Owner in MySQL" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
           <Tab fx:id="tabLogin" text="Login">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="318.0" prefWidth="369.0">
