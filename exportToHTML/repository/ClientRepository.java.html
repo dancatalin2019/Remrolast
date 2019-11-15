@@ -1,0 +1,107 @@
+<html>
+<head>
+<title>ClientRepository.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #000080; font-weight: bold;}
+.s1 { color: #000000;}
+.s2 { color: #808080; font-style: italic;}
+.s3 { color: #008000; font-weight: bold;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+ClientRepository.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span>repository;
+
+<span class="s0">import </span>model.Client;
+
+<span class="s0">import </span>javax.persistence.EntityManager;
+<span class="s0">import </span>javax.persistence.Query;
+<span class="s0">import </span>java.util.List;
+
+<span class="s0">public class </span>ClientRepository {
+
+    <span class="s0">private </span>EntityManager entityManager;
+
+    <span class="s0">public </span>ClientRepository(EntityManager entityManager) {
+        <span class="s0">this</span>.entityManager = entityManager;
+    }
+
+    <span class="s0">public void </span>save(Client client1) {
+
+        entityManager.getTransaction().begin();<span class="s2">//mandatory to start a transaction in order to have file save</span>
+
+        entityManager.persist(client1);<span class="s2">//in this way we save client in table remorci</span>
+
+        entityManager.getTransaction().commit();<span class="s2">//to commit the transaction in database</span>
+    }
+
+
+
+    <span class="s0">public void </span>FindClientbyCMP(String c_cnp) {
+        Client clientt =entityManager.find(Client.<span class="s0">class</span>,c_cnp);
+        System.out.println(<span class="s3">&quot;Clientul este : &quot;</span>+clientt);
+
+    }
+    <span class="s0">public void </span>DeleteClientbyCMP(String c_cnp) {
+        Client clientt =entityManager.find(Client.<span class="s0">class</span>,c_cnp);
+        entityManager.getTransaction().begin();
+        entityManager.remove(clientt);
+        entityManager.getTransaction().commit();
+
+
+    }
+    <span class="s0">public void </span>updateTelefon(String c_cnp,String newNumber) {
+        Client clientt =entityManager.find(Client.<span class="s0">class</span>,c_cnp);
+        entityManager.getTransaction().begin();
+        clientt.setC_nr_Telefon(newNumber);
+        entityManager.getTransaction().commit();
+
+
+    }
+
+
+<span class="s2">//    public void someMethod() {</span>
+//        for (int i = 0; i&lt; 25; i++) {
+//            if(i == 4) {
+//                //return;
+//                //break;
+//
+//                continue;
+//            }
+//            System.out.println(i);
+//        }
+//        System.out.println(&quot;bla bla&quot;);
+//    }
+
+    <span class="s0">public </span>List&lt;Client&gt; findAll() {
+        Query query = entityManager.createQuery(<span class="s3">&quot;SELECT c from Client c&quot;</span>);
+        System.out.println(query);<span class="s2">// SELECT * FROM Remorca</span>
+        List&lt;Client&gt; clientsall = query.getResultList();
+        System.out.println(clientsall);
+
+        <span class="s0">return </span>clientsall;<span class="s2">//entityManager.createQuery(&quot;SELECT r from Remorca r&quot;).getResultList();</span>
+
+    }
+
+    <span class="s0">public </span>List&lt;Client&gt; findCNP(String ccnp) {
+        Query query = entityManager.createQuery(<span class="s3">&quot;SELECT c from Client c WHERE c.c_cnp LIKE :ccnp&quot;</span>);
+        query.setParameter(<span class="s3">&quot;ccnp&quot;</span>, ccnp);
+        List&lt;Client&gt; clientsCNP = query.getResultList();
+        System.out.println(clientsCNP);
+
+<span class="s2">//        return entityManager.createQuery(&quot;SELECT r from Remorca r WHERE r.nr_Inmatriculare LIKE :nrInmatriculare&quot;)</span>
+//                .setParameter(&quot;nrInmatriculare&quot;, nrInmatriculare)
+//                .getResultList();
+        <span class="s0">return </span>clientsCNP;
+    }
+
+
+}
+</pre>
+</body>
+</html>

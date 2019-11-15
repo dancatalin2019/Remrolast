@@ -5,18 +5,17 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import model.Antreprenor;
 import model.Car;
 import model.Client;
 import model.Remorca;
-import repository.ClientRepository;
-import repository.Constants;
-import repository.RemorcaRepository;
-import repository.CarRepository;
+import repository.*;
 import repositoryCalculator.SumaRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.security.acl.Owner;
 import java.util.List;
 
 public class Controller {
@@ -114,11 +113,70 @@ public class Controller {
     public MenuItem mnuItemSuma;
     public TextField txtPrimulNr;
     public TextField txtal2leaNr;
+    public Tab tabAddOwner;
+    public Label lblOwnerName;
+    public Label lblOwnerSurname;
+    public Label lblOwnerCity;
+    public Label lblOwnerStreet;
+    public Label lblOwnerHouseNr;
+    public Label lblOwnerBI;
+    public Label lblOwnerCNP;
+    public Label lblOwnerPhone;
+    public TextField txtOwnerName;
+    public TextField txtOwnerSurname;
+    public TextField txtOwnerCity;
+    public TextField txtOwnerStreet;
+    public TextField txtOwnerHouseNr;
+    public TextField txtOwnerBI;
+    public TextField txtOwnerCNP;
+    public TextField txtAddOwnerPhone;
+    public Button btnSaveOwnerMySQL;
+    public Tab tabUpdateOwner;
+    public MenuItem menuItemUpdateOwner;
+    public AnchorPane tabAnchorPaneUpdateOwner;
+    public ComboBox comboCNPOwnerUpdate;
+    public Label lblCNPOwnerpdate;
+    public Label lblNumeOwnerUpdate;
+    public Label lblPrenumeOwnerUpdate;
+    public TextField txtNumeOwnerUpdate;
+    public TextField txtPrenumeOwnerUpdate;
+    public TextField txtTelActualOwner;
+    public Button btnUpdateTelOwner;
+    public Label lblTelactualOwner;
+    public Label lblNewPhoneOwner;
+    public TextField txtTelOwnerUpdated;
+    public Label lblNewStreetOwner;
+    public TextField txtNewStreetOwnerName;
+    public Button btnUpdateStreetlOwner;
+    public TextField txtNewHouseNrOwnerName;
+    public Label lblNewHouseNrOwner;
+    public Button btnUpdateHouseNrOwner;
+    public TextField txtNewBIOwnerName;
+    public Label lblNewBIOwner;
+    public Button btnUpdateBIOwner;
+    public TextField txtNewCityOwnerName;
+    public Label lblNewCityOwner;
+    public Button btnUpdateCityIOwner;
+    public TextField txtStreetCleintUpdate;
+    public TextField txtHousNrCllientUpdate;
+    public TextField txtBICllientUpdate;
+    public TextField txtCityCllientUpdate;
+    public Button btnUpdateHouseNrClient;
+    public Button btnUpdateStreetClient;
+    public Button btnUpdateBIClient;
+    public Button btnUpdateCityClient;
+    public Label lblStreetClient;
+    public TextField txtStreetClient;
+    public Label lblCityClient;
+    public TextField txtCityClient;
+    public Label lblHouseNrClient;
+    public TextField txtHouseNrClient;
 
 
     private RemorcaRepository remorcaRepository;
     private ClientRepository clientRepository1;
     private CarRepository carRepository;
+    private OwnerRepository ownerRepository;
 
 
     public void initialize() {
@@ -132,6 +190,8 @@ public class Controller {
         tabPane.getTabs().remove(tabAdaugRemorca);
         tabPane.getTabs().remove(tabCalcDiferenta);
         tabPane.getTabs().remove(tabCalculezSuma);
+        tabPane.getTabs().remove(tabAddOwner);
+        tabPane.getTabs().remove(tabUpdateOwner);
 
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Remorci");
 
@@ -140,6 +200,7 @@ public class Controller {
         remorcaRepository = new RemorcaRepository(entityManager);
         clientRepository1 = new ClientRepository(entityManager);
         carRepository =new CarRepository(entityManager);
+        ownerRepository= new OwnerRepository(entityManager);
         //remorcaRepository.findAll();
         //remorcaRepository.findByName("B62TRE");
         //clientRepository1.findAll();
@@ -223,6 +284,9 @@ tabPane.getTabs().add(tabAdaugClient);
         client.setSerie_Buletin(txtSerieBuletin.getText());
         client.setC_cnp(txtCNPClient.getText());
         client.setC_nr_Telefon(txtTelClient.getText());
+        client.setC_City(txtCityClient.getText());
+        client.setC_House_nr(txtHouseNrClient.getText());
+        client.setC_Street(txtStreetClient.getText());
         clientRepository1.save(client);
 
     }
@@ -312,7 +376,7 @@ tabPane.getTabs().add(tabAdaugClient);
     }
 
     public void updateTelClient(ActionEvent actionEvent) {
-        clientRepository1.updateTelefon("1750520020044",txtTelClientUpdated.getText());
+        clientRepository1.updateTelefon(comboCNPClientUpdate.getEditor().getText(),txtTelClientUpdated.getText());
 
     }
 
@@ -367,5 +431,91 @@ tabPane.getTabs().add(tabAdaugClient);
     }
 
 
+    public void saveOwnerinMySQL(ActionEvent actionEvent) {
+        Antreprenor antreprenor=new Antreprenor();
+        antreprenor.setA_nume(txtOwnerName.getText());
+        antreprenor.setA_prenume(txtOwnerSurname.getText());
+        antreprenor.setA_telefon(txtAddOwnerPhone.getText());
+        antreprenor.setCnp(txtOwnerCNP.getText());
+        antreprenor.setSerie_Buletin(txtOwnerBI.getText());
+        antreprenor.setStrada(txtOwnerStreet.getText());
+        antreprenor.setA_nr_Casa(txtOwnerHouseNr.getText());
+        antreprenor.setA_city(txtOwnerCity.getText());
+        ownerRepository.saveOwner(antreprenor);
+
+
+    }
+
+    public void openTabAddOwner(ActionEvent actionEvent) {
+        tabPane.getTabs().add(tabAddOwner);
+    }
+
+    public void selectOwnerUpdateTel(ActionEvent actionEvent) {
+        System.out.println(actionEvent.getEventType());
+        if (comboCNPOwnerUpdate.getSelectionModel().getSelectedIndex() != -1) {
+
+            Antreprenor antreprenor = (Antreprenor) comboCNPOwnerUpdate.getSelectionModel().getSelectedItem();
+
+            txtNumeOwnerUpdate.setText(antreprenor.getA_nume());
+            txtPrenumeOwnerUpdate.setText(String.valueOf(antreprenor.getA_prenume()));
+
+            txtTelActualOwner.setText(String.valueOf(antreprenor.getA_telefon()));
+        }
+
+    }
+        
+
+
+    public void bringMySQLCNPOwnerForTelupdate(KeyEvent keyEvent) {
+        comboCNPOwnerUpdate.getItems().clear();
+        if (comboCNPOwnerUpdate.getEditor().getText().length() >= 2) {
+            List<Antreprenor> ownerList = ownerRepository.findCNP("%"+comboCNPOwnerUpdate.getEditor().getText()+"%");
+
+            comboCNPOwnerUpdate.getItems()
+                    .addAll(ownerList);
+            txtTelOwnerUpdated.requestFocus();
+            comboCNPOwnerUpdate.show();
+
+        }
+    }
+
+    public void updateTelOwner(ActionEvent actionEvent) {
+        ownerRepository.updateTelefonOwner(comboCNPOwnerUpdate.getEditor().getText(),txtTelOwnerUpdated.getText());
+
+    }
+
+    public void openTabUpdateOwner(ActionEvent actionEvent) {
+        tabPane.getTabs().add(tabUpdateOwner);
+    }
+
+    public void updateStreetOwner(ActionEvent actionEvent) {
+        ownerRepository.updateOwnerStreet(comboCNPOwnerUpdate.getEditor().getText(),txtNewStreetOwnerName.getText());
+
+    }
+
+    public void updateHouseNrOwner(ActionEvent actionEvent) {
+        ownerRepository.updateHouseNrOwner(comboCNPOwnerUpdate.getEditor().getText(),txtNewHouseNrOwnerName.getText());
+    }
+
+    public void updateBIOwner(ActionEvent actionEvent) {
+        ownerRepository.updateBIOwner(comboCNPOwnerUpdate.getEditor().getText(),txtNewBIOwnerName.getText());
+    }
+
+    public void updateCityOwner(ActionEvent actionEvent) {
+        ownerRepository.updateCityOwner(comboCNPOwnerUpdate.getEditor().getText(),txtNewCityOwnerName.getText());
+    }
+
+    public void updateHouseNrClient(ActionEvent actionEvent) {
+    }
+
+    public void updateStreetClient(ActionEvent actionEvent) {
+        clientRepository1.updateStreetClient(comboCNPClientUpdate.getEditor().getText(),txtStreetCleintUpdate.getText());
+    }
+
+    public void updateBIClient(ActionEvent actionEvent) {
+    }
+
+    public void updateCityClient(ActionEvent actionEvent) {
+    }
 }
 

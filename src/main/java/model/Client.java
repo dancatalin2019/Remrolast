@@ -11,12 +11,35 @@ public class Client {
     private String c_Prenume;
     @Id
     private String c_cnp;
-
     private String serie_Buletin;
     private String c_nr_Telefon;
+    private String c_Street;
+    private String c_City;
+    private String c_House_nr;
 
+    public String getC_Street() {
+        return c_Street;
+    }
 
+    public void setC_Street(String c_Street) {
+        this.c_Street = c_Street;
+    }
 
+    public String getC_City() {
+        return c_City;
+    }
+
+    public void setC_City(String c_City) {
+        this.c_City = c_City;
+    }
+
+    public String getC_House_nr() {
+        return c_House_nr;
+    }
+
+    public void setC_House_nr(String c_House_nr) {
+        this.c_House_nr = c_House_nr;
+    }
 
     public String getC_Nume() {
         return c_Nume;

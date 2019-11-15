@@ -46,6 +46,14 @@ public class ClientRepository {
 
 
     }
+    public void updateStreetClient(String c_cnp,String newStreet) {
+        Client clientt =entityManager.find(Client.class,c_cnp);
+        entityManager.getTransaction().begin();
+        clientt.setC_nr_Telefon(newStreet);
+        entityManager.getTransaction().commit();
+
+
+    }
 
 
 //    public void someMethod() {
@@ -66,7 +74,6 @@ public class ClientRepository {
         System.out.println(query);// SELECT * FROM Remorca
         List<Client> clientsall = query.getResultList();
         System.out.println(clientsall);
-
         return clientsall;//entityManager.createQuery("SELECT r from Remorca r").getResultList();
 
     }
